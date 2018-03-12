@@ -7,6 +7,8 @@ Window {
     visible: true
     width: 500
     height: 650
+    color: "#ffffff"
+    //    property alias tileCouleurCase: Tile.couleurCase
     title: qsTr("2048")
 
 
@@ -16,37 +18,42 @@ Window {
         y: 184
         width: 415
         height: 415
-        color: "#b6b1a4"
+        color: "#908b86"
         radius: 10
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 42
         border.width: 0
         anchors.horizontalCenter: parent.horizontalCenter
 
-        Tile {id: c11; x: 15; y: 15}
-        Tile {id: c12; x: 115; y: 15}
-        Tile {id: c13; x: 215; y: 15}
-        Tile {id: c14; x: 315; y: 15}
-        Tile {id: c21; x: 15; y: 115}
-        Tile {id: c22; x: 115; y: 115}
-        Tile {id: c23; x: 215; y: 115}
-        Tile {id: c24; x: 315; y: 115}
-        Tile {id: c31; x: 15; y: 215}
-        Tile {id: c32; x: 115; y: 215}
-        Tile {id: c33; x: 215; y: 215}
-        Tile {id: c34; x: 315; y: 215}
-        Tile {id: c41; x: 15; y: 315}
-        Tile {id: c42; x: 115; y: 315}
-        Tile {id: c43; x: 215; y: 315}
-        Tile {id: c44; x: 315; y: 315}
+        Repeater {
+            model: 16
+            delegate: Tile {
+                objectName: "case" + index
+                x: index%4*100+15
+                y: (index-index%4)/4*100+15
+                Tile {
+                    objectName: "tile" + index
+                    color: "#eceae5"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
 
-
-    }
+                    Text {
+                        objectName: "nums%".arg(index)
+                        color: "#46423e"
+                        text: valeur+index.jeuQML
+                        font.weight: Font.Black
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 40
+                    }
+                }
+            }
+        }
 
     TextEdit {
         id: titre
-        x: 42
-        y: 40
+        x: 0
+        y: -142
         width: 80
         height: 20
         color: "#46423e"
@@ -60,12 +67,12 @@ Window {
 
     Rectangle {
         id: score
-        x: 245
-        y: 40
+        x: 191
+        y: -157
         width: 100
         height: 50
-        color: "#b6b1a4"
-        radius: 1
+        color: "#908b86"
+        radius: 5
         border.width: 0
 
         Text {
@@ -73,7 +80,7 @@ Window {
             x: 43
             width: 28
             height: 18
-            color: "#ffffff"
+            color: "#e7e3d8"
             text: qsTr("SCORE")
             font.pixelSize: 14
             font.bold: false
@@ -88,19 +95,19 @@ Window {
 
     Rectangle {
         id: best
-        x: 357
-        y: 40
+        x: 315
+        y: -157
         width: 100
         height: 50
-        color: "#b6b1a4"
-        radius: 1
+        color: "#908b86"
+        radius: 5
 
         Text {
             id: titre_best
             x: 43
             width: 28
             height: 18
-            color: "#ffffff"
+            color: "#e7e3d8"
             text: qsTr("BEST")
             font.pixelSize: 14
             font.bold: false
@@ -116,8 +123,8 @@ Window {
 
     TextEdit {
         id: consigne
-        x: 42
-        y: 125
+        x: 0
+        y: -59
         width: 80
         height: 20
         text: qsTr("Assemble les cases pour arriver au 2048 !")
@@ -125,9 +132,9 @@ Window {
     }
 
     Rectangle {
-        id: rectangle
-        x: 334
-        y: 113
+        id: reset
+        x: 292
+        y: -71
         width: 123
         height: 44
         color: "#46423e"
@@ -146,5 +153,7 @@ Window {
             font.pixelSize: 16
         }
     }
+    }
 
 }
+

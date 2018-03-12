@@ -1,4 +1,7 @@
 #include "case.h"
+#include "tableau.h"
+#include <QObject>
+
 
 Case::Case()
 {
@@ -10,7 +13,7 @@ Case::Case(int x,int y)
     y = py;
     *valeur = NULL;
 }
-Case::fusion_cases(Case Case1,Case Case2)
+/*void Case::fusion_cases(Case Case1,Case Case2)
 {
     if (Case1.valeur == Case2.valeur)
     {
@@ -18,12 +21,14 @@ Case::fusion_cases(Case Case1,Case Case2)
 
     }
 }
-Case::move_case(Case Case1)
+
+void Case::move_case(Case Case1)
 {
-    // if (mouvement =...) for(...) ex: si mouvement droite, tant que l'on a rien sur la droite, on décale notre case sur la droite avec la limite de la borne : 4
+    if (mouvement =...) for(...) ex: si mouvement droite, tant que l'on a rien sur la droite, on décale notre case sur la droite avec la limite de la borne : 4
 }
+
 Case::~Case()
 {
     *valeur = NULL;
     delete Case();
-}
+}*/
