@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Case.qml</file>
+        <file>Tile.qml</file>
     </qresource>
 </RCC>

@@ -6,7 +6,7 @@
 Tableau::Tableau()
 {
     table = new Case*[16];
-    for (i=0;i<16;i++)
+    for (int i=0;i<16;i++)
     {
         //lignes et colonnes de notre tableau comprises entre 0 et 3
         table[i] = Case(i/4,i%4);
@@ -16,7 +16,7 @@ Tableau::Tableau()
 }
 Tableau::move_all(Tableau T)
 {
-    for (i=0;i<length(T.table);i++)
+    for (int i=0;i<length(T.table);i++)
     {
         move_case(T.table(i/4,i%4));
     }

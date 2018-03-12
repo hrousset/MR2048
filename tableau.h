@@ -13,6 +13,6 @@ public:
 private:
     int taille;
     Case **table = NULL;
-}
+};
 
 #endif // TABLEAU_H

@@ -3,9 +3,11 @@ import QtQuick 2.0
 Item {
 
     property alias couleurCase: rectangle.color
+    width: 85
+    height: 85
 
     Rectangle {
-            width: 85
+        width: 85
             height: 85
             color: "#e7e3d8"
             radius: 5
