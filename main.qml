@@ -7,7 +7,7 @@ Window {
     visible: true
     width: 500
     height: 650
-    color: "#ffffff"
+    color: "#faf8ef"
     //    property alias tileCouleurCase: Tile.couleurCase
     title: qsTr("2048")
 
@@ -18,7 +18,7 @@ Window {
         y: 184
         width: 415
         height: 415
-        color: "#908b86"
+        color: "#bbada0"
         radius: 10
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 42
@@ -35,8 +35,8 @@ Window {
                     function log2(x) {
                         return Math.log(x)/Math.log(2)
                     }
-                    property var valeur: [2,0,16,256,2048,512,2,2,2,8,128,128,128,128,128,16]
-                    property var couleur: ["#808080","#eceae5","#800000","#FA8072","#CD5C5C","#117a65","#8e44ad", "#FF0000","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9"]
+                    property var valeur: [2,0,16,256,2048,512,2,2,2,8,64,32,4,128,128,16]
+                    property var couleur: ["","#eee4da","#ede0c8","#f2b179","#f59563","#f67c5f","#f65e3b", "#edcf72","#edcc61","#edc850","#edc53f","#edc22e","#2980b9","#2980b9","#2980b9","#2980b9"]
                     height: (valeur[index]!=0)*85
                     width: (valeur[index]!=0)*85
                     objectName: "tile" + index
@@ -45,14 +45,14 @@ Window {
                     anchors.verticalCenter: parent.verticalCenter
 
                     Text {
-                        property var valeur1: [2,0,16,256,2048,512,2,2,2,8,128,128,128,128,128,16]
+                        property var valeur1: [2,0,16,256,2048,512,2,2,2,8,64,32,4,128,128,16]
                         objectName: "nums%".arg(index)
-                        color: "#46423e"
+                        color: "#776e65"
                         text: valeur1[index]
                         font.weight: Font.Black
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 40
+                        font.pixelSize: (1000<valeur1[index])*30+(valeur1[index]<100)*40+(100<valeur1[index]&&valeur1[index]<1000)*35
                         opacity: (valeur1[index]!=0)*1
                     }
                 }
@@ -65,7 +65,7 @@ Window {
         y: -142
         width: 80
         height: 20
-        color: "#46423e"
+        color: "#776e65"
         text: qsTr("2048")
         font.weight: Font.Black
         font.bold: false
@@ -80,7 +80,7 @@ Window {
         y: -157
         width: 100
         height: 50
-        color: "#908b86"
+        color: "#bbada0"
         radius: 5
         border.width: 0
 
@@ -108,7 +108,7 @@ Window {
         y: -157
         width: 100
         height: 50
-        color: "#908b86"
+        color: "#bbada0"
         radius: 5
 
         Text {
@@ -138,6 +138,7 @@ Window {
         height: 20
         text: qsTr("Assemble les cases pour arriver au 2048 !")
         font.pixelSize: 15
+        color: "#776e65"
     }
 
     Rectangle {
@@ -146,7 +147,7 @@ Window {
         y: -71
         width: 123
         height: 44
-        color: "#46423e"
+        color: "#8f7a66"
         radius: 7
         border.width: 0
 
@@ -154,7 +155,7 @@ Window {
             id: newgame
             x: 50
             y: 15
-            color: "#ffffff"
+            color: "#faf8ef"
             text: qsTr("NEW GAME")
             font.weight: Font.Black
             anchors.verticalCenter: parent.verticalCenter

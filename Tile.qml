@@ -5,7 +5,7 @@ Rectangle {
 
     width: 85
     height: 85
-    color: "#b6b1a4"
+    color: "#cdc0b4"
     radius: 5
     border.width: 0
 
