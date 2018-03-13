@@ -14,10 +14,10 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-    Case uneValeur;
+    //Case uneValeur;
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("valeur_index", &uneValeur);
+    //engine.rootContext()->setContextProperty("valeur1", &uneValeur);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

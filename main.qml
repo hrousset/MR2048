@@ -31,20 +31,29 @@ Window {
                 objectName: "case" + index
                 x: index%4*100+15
                 y: (index-index%4)/4*100+15
-                Tile {
+                Rectangle {
+                    function log2(x) {
+                        return Math.log(x)/Math.log(2)
+                    }
+                    property var valeur: [2,0,16,256,2048,512,2,2,2,8,128,128,128,128,128,16]
+                    property var couleur: ["#808080","#eceae5","#800000","#FA8072","#CD5C5C","#117a65","#8e44ad", "#FF0000","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9","#2980b9"]
+                    height: (valeur[index]!=0)*85
+                    width: (valeur[index]!=0)*85
                     objectName: "tile" + index
-                    color: "#eceae5"
+                    color: couleur[log2(valeur[index])]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
 
                     Text {
+                        property var valeur1: [2,0,16,256,2048,512,2,2,2,8,128,128,128,128,128,16]
                         objectName: "nums%".arg(index)
                         color: "#46423e"
-                        text: valeur+index.jeuQML
+                        text: valeur1[index]
                         font.weight: Font.Black
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         font.pixelSize: 40
+                        opacity: (valeur1[index]!=0)*1
                     }
                 }
             }
