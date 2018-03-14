@@ -1,27 +1,29 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QtQml>
 #include <iostream>
 #include <QObject>
 
 
+#include "listevaleurs.h"
 #include "case.h"
 #include "tableau.h"
 
 int main(int argc, char *argv[])
 {
-#if defined(Q_OS_WIN)
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
+//#if defined(Q_OS_WIN)
+    //QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+//#endif
 
     QGuiApplication app(argc, argv);
-    //Case uneValeur;
+    listeValeurs uneValeur;
 
     QQmlApplicationEngine engine;
-    //engine.rootContext()->setContextProperty("valeur1", &uneValeur);
+    engine.rootContext()->setContextProperty("listeNombres", &uneValeur);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    if (engine.rootObjects().isEmpty())
-        return -1;
+    //if (engine.rootObjects().isEmpty())
+        //return -1;
 
     return app.exec();
 }

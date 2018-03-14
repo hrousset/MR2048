@@ -8,7 +8,6 @@ Window {
     width: 500
     height: 650
     color: "#faf8ef"
-    //    property alias tileCouleurCase: Tile.couleurCase
     title: qsTr("2048")
 
 
@@ -33,27 +32,68 @@ Window {
                 y: (index-index%4)/4*100+15
                 Rectangle {
                     function log2(x) {
-                        return Math.log(x)/Math.log(2)
+                        return Math.max(Math.log(x)/Math.log(2),0)
                     }
-                    property var valeur: [2,0,16,256,2048,512,2,2,2,8,64,32,4,128,128,16]
-                    property var couleur: ["","#eee4da","#ede0c8","#f2b179","#f59563","#f67c5f","#f65e3b", "#edcf72","#edcc61","#edc850","#edc53f","#edc22e","#2980b9","#2980b9","#2980b9","#2980b9"]
+                    property var valeur: listeNombres.jeuQML//[2,0,16,256,2048,512,8192,4096,2,8,64,32,4,128,128,16]
+                    property var couleur: ["","#eee4da"/*2*/,"#ede0c8"/*4*/,"#f2b179"/*8*/,"#f59563"/*16*/,"#f67c5f"/*32*/,"#f65e3b"/*64*/, "#edcf72"/*128*/,"#edcc61"/*256*/,"#edc850"/*512*/,"#edc53f"/*1024*/,"#edc22e"/*2048*/,"#2ea297"/*4096*/,"#17514b"/*8192*/,"#0b2825","#051412"]
                     height: (valeur[index]!=0)*85
                     width: (valeur[index]!=0)*85
+                    radius: 5
                     objectName: "tile" + index
                     color: couleur[log2(valeur[index])]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
 
+                    Keys.onPressed: {
+                      switch (event.key) {
+                        case Qt.Key_Up:
+                          listeNombres.haut();
+                          break;
+                        case Qt.Key_Down:
+                          listeNombres.bas();
+                          break;
+                        case Qt.Key_Right:
+                            listeNombres.droite();
+                            break;
+                        case Qt.Key_Left:
+                            listeNombres.gauche();
+                            break;
+                      }
+                    }
+
                     Text {
-                        property var valeur1: [2,0,16,256,2048,512,2,2,2,8,64,32,4,128,128,16]
+                        function couleurNum(x) {
+                            if (x<5) {return 0}
+                            return 1
+                        }
+
+                        property var couleur1: ["#776e65","#f9f6f2"]
+                        property var valeur1: listeNombres.jeuQML//[2,0,16,256,2048,512,8192,4096,2,8,64,32,4,128,128,16]
                         objectName: "nums%".arg(index)
-                        color: "#776e65"
+                        color: couleur1[couleurNum(valeur1[index])]
                         text: valeur1[index]
                         font.weight: Font.Black
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                         font.pixelSize: (1000<valeur1[index])*30+(valeur1[index]<100)*40+(100<valeur1[index]&&valeur1[index]<1000)*35
                         opacity: (valeur1[index]!=0)*1
+
+                        Keys.onPressed: {
+                          switch (event.key) {
+                            case Qt.Key_Up:
+                              listeNombres.haut();
+                              break;
+                            case Qt.Key_Down:
+                              listeNombres.bas();
+                              break;
+                            case Qt.Key_Right:
+                                listeNombres.droite();
+                                break;
+                            case Qt.Key_Left:
+                                listeNombres.gauche();
+                                break;
+                          }
+                        }
                     }
                 }
             }

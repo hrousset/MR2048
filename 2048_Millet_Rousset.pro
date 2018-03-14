@@ -14,7 +14,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     case.cpp \
-    tableau.cpp
+    tableau.cpp \
+    listevaleurs.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,4 +32,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     case.h \
-    tableau.h
+    tableau.h \
+    listevaleurs.h
