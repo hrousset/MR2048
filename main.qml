@@ -43,7 +43,7 @@ Window {
                     color: couleur[log2(valeur[index])]
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-
+                    focus: true
                     Keys.onPressed: {
                         switch (event.key) {
                             case Qt.Key_Up:
@@ -76,7 +76,7 @@ Window {
                         anchors.verticalCenter: parent.verticalCenter
                         font.pixelSize: (1000<valeur1[index])*30+(valeur1[index]<100)*40+(100<valeur1[index]&&valeur1[index]<1000)*35
                         opacity: (valeur1[index]!=0)*1
-
+                        focus: true
                         Keys.onPressed: {
                           switch (event.key) {
                             case Qt.Key_Up:

@@ -1,13 +1,12 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QtQml>
-#include <iostream>
-#include <QObject>
+
 
 
 #include "listevaleurs.h"
-#include "case.h"
-#include "tableau.h"
+//#include "case.h"
+//#include "tableau.h"
 
 int main(int argc, char *argv[])
 {

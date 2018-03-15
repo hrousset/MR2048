@@ -1,14 +1,13 @@
 #ifndef LISTEVALEURS_H
 #define LISTEVALEURS_H
 
-using namespace std;
 
 #include <QObject>
 #include <iostream>
 
 class listeValeurs : public QObject
 {
-    Q_OBJECT;
+    Q_OBJECT
 public:
     explicit listeValeurs(QObject *parent=0);
     Q_INVOKABLE void haut();

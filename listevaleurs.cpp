@@ -1,6 +1,5 @@
 #include "listevaleurs.h"
 #include <QObject>
-#include <QList>
 #include <iostream>
 #include <cstdlib>  //on inclut la fonction rand
 #include <ctime>  //avoir le temps pour des nombres aleatoires
