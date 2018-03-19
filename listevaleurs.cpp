@@ -14,33 +14,52 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     int a1 = rand()%16;  //initialisation des deux cases du debut
     int a2 = rand()%16;
     while(a1==a2){a2 = rand()%16;}   //Pour pas que les deux tuiles du depart soient superposees
-    int b1 = rand()%4;
-    int b2 = rand()%4;
-    for (int i=0; i<16; i++){
-        lNombres.append(0);
-    }
+    int b1 = rand()%10;
+    int b2 = rand()%10;
+    for (int i=0; i<16; i++) {lNombres.append(0);}
     lNombres[a1] = 2;
     lNombres[a2] = 2;
     if (b1==0){lNombres[a1] = 4;}
     if (b2==0){lNombres[a2] = 4;}
+    valScore = 0;
     chgtValeurs();
+    chgtScore();
 }
 
 void listeValeurs::haut() {
-    for(int i=0; i<16; i++){lNombres[i]=2;}
+    QList<int> l = lNombres;
+    gravite(0);
+    fusion(0);
+    gravite(0);
+    if (l!=lNombres) {addtile();}
     chgtValeurs();
 }
 
 void listeValeurs::bas() {
-    for(int i=0; i<16; i++){lNombres[i]=4;}
+    QList<int> l = lNombres;
+    gravite(1);
+    fusion(1);
+    gravite(1);
+    if (l!=lNombres) {addtile();}
     chgtValeurs();
 }
 
 void listeValeurs::droite() {
-
+    QList<int> l = lNombres;
+    gravite(2);
+    fusion(2);
+    gravite(2);
+    if (l!=lNombres) {addtile();}
+    chgtValeurs();
 }
 
 void listeValeurs::gauche() {
+    QList<int> l = lNombres;
+    gravite(3);
+    fusion(3);
+    gravite(3);
+    if (l!=lNombres) {addtile();}
+    chgtValeurs();
 
 }
 
@@ -48,15 +67,167 @@ QList<int> listeValeurs::lireValeurs() {
     return lNombres;
 }
 
-bool listeValeurs::estVoisin(int a, int b) {
-    int x1 = a%4;
-    int x2 = b%4;
-    int y1 = (a-a%4)/4;
-    int y2 = (b-b%4)/4;
-    if (abs(x1-x2)==1 || abs(y1-y2)==1) {return true;}
-    return false;
+
+int listeValeurs::coordonnees(int x, int y) {
+    return y*4+x;
 }
 
+void listeValeurs::remonter_haut(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(i,a+1)]!=0 && lNombres[coordonnees(i,a)]==0) {
+            lNombres[coordonnees(i,a)] = lNombres[coordonnees(i,a+1)];
+            lNombres[coordonnees(i,a+1)] = 0;
+        }
+    }
+}
+
+void listeValeurs::fusion_haut(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(i,a+1)]==lNombres[coordonnees(i,a)]) {
+            valScore += lNombres[coordonnees(i,a+1)];
+            lNombres[coordonnees(i,a)] = 2*lNombres[coordonnees(i,a+1)];
+            lNombres[coordonnees(i,a+1)] = 0;
+        }
+    }
+}
+
+void listeValeurs::remonter_bas(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(i,a)]!=0 && lNombres[coordonnees(i,a+1)]==0) {
+            lNombres[coordonnees(i,a+1)] = lNombres[coordonnees(i,a)];
+            lNombres[coordonnees(i,a)] = 0;
+        }
+    }
+}
+
+void listeValeurs::fusion_bas(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(i,a)]==lNombres[coordonnees(i,a+1)]) {
+            valScore += lNombres[coordonnees(i,a)];
+            lNombres[coordonnees(i,a+1)] = 2*lNombres[coordonnees(i,a)];
+            lNombres[coordonnees(i,a)] = 0;
+        }
+    }
+}
+
+void listeValeurs::remonter_gauche(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(a+1,i)]!=0 && lNombres[coordonnees(a,i)]==0) {
+            lNombres[coordonnees(a,i)] = lNombres[coordonnees(a+1,i)];
+            lNombres[coordonnees(a+1,i)] = 0;
+        }
+    }
+}
+
+void listeValeurs::fusion_gauche(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(a+1,i)]==lNombres[coordonnees(a,i)]) {
+            lNombres[coordonnees(a,i)] = 2*lNombres[coordonnees(a+1,i)];
+            lNombres[coordonnees(a+1,i)] = 0;
+        }
+    }
+}
+
+void listeValeurs::remonter_droite(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(a,i)]!=0 && lNombres[coordonnees(a+1,i)]==0) {
+            lNombres[coordonnees(a+1,i)] = lNombres[coordonnees(a,i)];
+            lNombres[coordonnees(a,i)] = 0;
+        }
+    }
+}
+
+void listeValeurs::fusion_droite(int a) {
+    for (int i=0; i<4; i++) {
+        if (lNombres[coordonnees(a,i)]==lNombres[coordonnees(a+1,i)]) {
+            lNombres[coordonnees(a+1,i)] = 2*lNombres[coordonnees(a,i)];
+            lNombres[coordonnees(a,i)] = 0;
+        }
+    }
+}
+
+void listeValeurs::gravite(int a) {
+    if (a==0) {
+        remonter_haut(0);
+
+        remonter_haut(1);
+        remonter_haut(0);
+
+        remonter_haut(2);
+        remonter_haut(1);
+        remonter_haut(0);
+    }
+    if (a==1) {
+        remonter_bas(2);
+
+        remonter_bas(1);
+        remonter_bas(2);
+
+        remonter_bas(0);
+        remonter_bas(1);
+        remonter_bas(2);
+    }
+    if (a==2) {
+        remonter_droite(2);
+
+        remonter_droite(1);
+        remonter_droite(2);
+
+        remonter_droite(0);
+        remonter_droite(1);
+        remonter_droite(2);
+    }
+    if (a==3) {
+        remonter_gauche(0);
+
+        remonter_gauche(1);
+        remonter_gauche(0);
+
+        remonter_gauche(2);
+        remonter_gauche(1);
+        remonter_gauche(0);
+    }
+}
+
+void listeValeurs::fusion(int a) {
+    if (a==0) {
+        fusion_haut(0);
+        fusion_haut(1);
+        fusion_haut(2);
+    }
+    if (a==1) {
+        fusion_bas(2);
+        fusion_bas(1);
+        fusion_bas(0);
+    }
+    if (a==2) {
+        fusion_droite(2);
+        fusion_droite(1);
+        fusion_droite(0);
+    }
+    if (a==3) {
+        fusion_gauche(0);
+        fusion_gauche(1);
+        fusion_gauche(2);
+    }
+}
+
+void listeValeurs::addtile() {
+    srand((int)time(0));
+    int a = rand()%16;
+    int b = rand()%10;
+    int c = 0;
+    for (int i=0; i<16; i++){
+        if (lNombres[i]!=0) {c++;}
+    }
+    if (c == 16) {
+        //endgame();
+        return;
+    }
+    while (lNombres[a]!=0) {a = rand()%16;}
+    lNombres[a] = 2;
+    if (b==0) {lNombres[a]=4;}
+}
 
 
 

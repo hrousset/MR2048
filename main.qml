@@ -115,7 +115,7 @@ Window {
 
     Rectangle {
         id: score
-        x: 191
+        x: 315
         y: -157
         width: 100
         height: 50
@@ -129,7 +129,7 @@ Window {
             width: 28
             height: 18
             color: "#e7e3d8"
-            text: qsTr("SCORE")
+            text: score.scQML
             font.pixelSize: 14
             font.bold: false
             font.family: "Arial"
@@ -141,9 +141,9 @@ Window {
         }
     }
 
-    Rectangle {
+    /*Rectangle {
         id: best
-        x: 315
+        x: 191
         y: -157
         width: 100
         height: 50
@@ -167,7 +167,7 @@ Window {
             horizontalAlignment: Text.AlignHCenter
         }
         border.width: 0
-    }
+    }*/
 
     TextEdit {
         id: consigne
