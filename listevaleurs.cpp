@@ -33,6 +33,7 @@ void listeValeurs::haut() {
     gravite(0);
     if (l!=lNombres) {addtile();}
     chgtValeurs();
+    chgtScore();
 }
 
 void listeValeurs::bas() {
@@ -42,6 +43,7 @@ void listeValeurs::bas() {
     gravite(1);
     if (l!=lNombres) {addtile();}
     chgtValeurs();
+    chgtScore();
 }
 
 void listeValeurs::droite() {
@@ -51,6 +53,7 @@ void listeValeurs::droite() {
     gravite(2);
     if (l!=lNombres) {addtile();}
     chgtValeurs();
+    chgtScore();
 }
 
 void listeValeurs::gauche() {
@@ -60,7 +63,7 @@ void listeValeurs::gauche() {
     gravite(3);
     if (l!=lNombres) {addtile();}
     chgtValeurs();
-
+    chgtScore();
 }
 
 QList<int> listeValeurs::lireValeurs() {
@@ -122,6 +125,7 @@ void listeValeurs::remonter_gauche(int a) {
 void listeValeurs::fusion_gauche(int a) {
     for (int i=0; i<4; i++) {
         if (lNombres[coordonnees(a+1,i)]==lNombres[coordonnees(a,i)]) {
+            valScore += lNombres[coordonnees(a+1,i)];
             lNombres[coordonnees(a,i)] = 2*lNombres[coordonnees(a+1,i)];
             lNombres[coordonnees(a+1,i)] = 0;
         }
@@ -140,6 +144,7 @@ void listeValeurs::remonter_droite(int a) {
 void listeValeurs::fusion_droite(int a) {
     for (int i=0; i<4; i++) {
         if (lNombres[coordonnees(a,i)]==lNombres[coordonnees(a+1,i)]) {
+            valScore += lNombres[coordonnees(a,i)];
             lNombres[coordonnees(a+1,i)] = 2*lNombres[coordonnees(a,i)];
             lNombres[coordonnees(a,i)] = 0;
         }
