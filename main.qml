@@ -129,7 +129,8 @@ Window {
             width: 28
             height: 18
             color: "#e7e3d8"
-            text: score.scQML
+            text: qsTr("SCORE")
+            anchors.horizontalCenterOffset: 0
             font.pixelSize: 14
             font.bold: false
             font.family: "Arial"
@@ -137,7 +138,21 @@ Window {
             font.weight: Font.Black
             horizontalAlignment: Text.AlignHCenter
             anchors.top: parent.top
-            anchors.topMargin: 7
+            anchors.topMargin: 3
+        }
+
+        Text {
+            id: text1
+            x: 39
+            y: 16
+            color: "#faf8ef"
+            text: listeNombres.scQML //qsTr("36")
+            anchors.horizontalCenterOffset: 0
+            font.weight: Font.ExtraBold
+            font.family: "Arial"
+            renderType: Text.NativeRendering
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: 30
         }
     }
 
@@ -190,6 +205,7 @@ Window {
         radius: 7
         border.width: 0
 
+
         Text {
             id: newgame
             x: 50
@@ -200,6 +216,14 @@ Window {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             font.pixelSize: 16
+        }
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            onClicked: {
+                listeNombres.restartGame()
+            }
         }
     }
     }

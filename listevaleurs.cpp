@@ -70,6 +70,10 @@ QList<int> listeValeurs::lireValeurs() {
     return lNombres;
 }
 
+QString listeValeurs::lireScore() {
+    return QString::number(valScore);
+}
+
 
 int listeValeurs::coordonnees(int x, int y) {
     return y*4+x;
@@ -234,5 +238,21 @@ void listeValeurs::addtile() {
     if (b==0) {lNombres[a]=4;}
 }
 
+void listeValeurs::restartGame() {
+    srand((int)time(0));
+    int a1 = rand()%16;  //initialisation des deux cases du debut
+    int a2 = rand()%16;
+    while(a1==a2){a2 = rand()%16;}   //Pour pas que les deux tuiles du depart soient superposees
+    int b1 = rand()%10;
+    int b2 = rand()%10;
+    for (int i=0; i<16; i++) {lNombres[i]=0;}
+    lNombres[a1] = 2;
+    lNombres[a2] = 2;
+    if (b1==0){lNombres[a1] = 4;}
+    if (b2==0){lNombres[a2] = 4;}
+    valScore = 0;
+    chgtValeurs();
+    chgtScore();
+}
 
 

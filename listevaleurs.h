@@ -16,11 +16,11 @@ public:
     Q_INVOKABLE void droite();
 
     Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs);
-    Q_PROPERTY(int scQML READ lireScore NOTIFY chgtScore);
+    Q_PROPERTY(QString scQML READ lireScore NOTIFY chgtScore);
 
 
     QList<int> lireValeurs();
-    int lireScore();
+    QString lireScore();
 
     void gravite(int a);
     void fusion(int a);
@@ -42,6 +42,7 @@ signals:
     void chgtScore();
 
 public slots:
+    void restartGame();
 
 private:
     QList<int> lNombres;
