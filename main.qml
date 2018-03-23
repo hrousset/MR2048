@@ -35,8 +35,8 @@ Window {
                     function log2(x) {
                         return Math.max(Math.log(x)/Math.log(2),0)
                     }
-                    property var valeur: listeNombres.jeuQML //[2,0,16,256,2048,512,8192,4096,2,8,64,32,4,128,128,16]
-                    property var couleur: ["","#eee4da"/*2*/,"#ede0c8"/*4*/,"#f2b179"/*8*/,"#f59563"/*16*/,"#f67c5f"/*32*/,"#f65e3b"/*64*/, "#edcf72"/*128*/,"#edcc61"/*256*/,"#edc850"/*512*/,"#edc53f"/*1024*/,"#edc22e"/*2048*/,"#2ea297"/*4096*/,"#17514b"/*8192*/,"#0b2825","#051412"]
+                    property var valeur: listeNombres.jeuQML
+                    property var couleur: ["","#eee4da"/*2*/,"#ede0c8"/*4*/,"#f2b179"/*8*/,"#f59563"/*16*/,"#f67c5f"/*32*/,"#f65e3b"/*64*/, "#edcf72"/*128*/,"#edcc61"/*256*/,"#edc850"/*512*/,"#edc53f"/*1024*/,"#edc22e"/*2048*/,"#2ea297"/*4096*/,"#17514b"/*8192*/,"#0b2825"/*16384*/,"#051412"/*32768*/]
                     height: (valeur[index]!=0)*85
                     width: (valeur[index]!=0)*85
                     radius: 5
@@ -69,7 +69,7 @@ Window {
                         }
 
                         property var couleur1: ["#776e65","#f9f6f2"]
-                        property var valeur1: listeNombres.jeuQML //[2,0,16,256,2048,512,8192,4096,2,8,64,32,4,128,128,16]
+                        property var valeur1: listeNombres.jeuQML
                         color: couleur1[couleurNum(valeur1[index])]
                         text: valeur1[index]
                         font.weight: Font.Black

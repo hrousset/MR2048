@@ -13,21 +13,26 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     srand((int)time(0));
     int a1 = rand()%16;  //initialisation des deux cases du debut
     int a2 = rand()%16;
+
     while(a1==a2){a2 = rand()%16;}   //Pour pas que les deux tuiles du depart soient superposees
     int b1 = rand()%10;
     int b2 = rand()%10;
-    for (int i=0; i<16; i++) {lNombres.append(0);}
+
+    for (int i=0; i<16; i++) {lNombres.append(0);} //creation de la liste
     lNombres[a1] = 2;
     lNombres[a2] = 2;
-    if (b1==0){lNombres[a1] = 4;}
+    if (b1==0){lNombres[a1] = 4;} //1 chance sur 10 que la case initiale soit un 4
     if (b2==0){lNombres[a2] = 4;}
-    valScore = 0;
-    etatJeu = 0;
-    etatMedaille = 0;
-    agagne = 0;
+    agagne = 0;     //le jeu n'a pas encore été gagné
     chgtValeurs();
+
+    valScore = 0;   //initialisation à  du score
     chgtScore();
+
+    etatJeu = 0;    //le jeu n'est pas perdu
     finJeu();
+
+    etatMedaille = 0;   //le jeu n'est pas gagné
     finMedaille();
 }
 
@@ -36,9 +41,9 @@ void listeValeurs::haut() {
     gravite(0);
     fusion(0);
     gravite(0);
-    if (l!=lNombres) {addtile();}
-    if (agagne==0) {winGame();}
-    endGame();
+    if (l!=lNombres) {addtile();}   //on ne rajoute une tuile que si le jeu a changé a ce mouvement
+    if (agagne==0) {winGame();}   //verification que le jeu n'est pas gagné
+    endGame();  //verification que le jeu n'est pas perdu
     chgtValeurs();
     chgtScore();
 }
