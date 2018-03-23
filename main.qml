@@ -190,7 +190,7 @@ Window {
         y: -59
         width: 80
         height: 20
-        text: qsTr("Assemble les cases pour arriver au 2048 !")
+        text: qsTr("Assemble les cases pour arriver à 2048 !")
         font.pixelSize: 15
         color: "#776e65"
     }
@@ -225,6 +225,28 @@ Window {
                 listeNombres.restartGame()
             }
         }
+    }
+
+    Rectangle {
+        id: fin
+        color: "#ebe4dd"
+        anchors.fill: parent
+        radius: 10
+        opacity: 0.6*listeNombres.finQML
+    }
+    Text {
+        id: textefin
+        x: 126
+        y: 163
+        width: 141
+        height: 49
+        color: "#776e65"
+        text: qsTr("PERDU")
+        opacity: listeNombres.finQML
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.weight: Font.Black
+        font.pixelSize: 40
     }
     }
 

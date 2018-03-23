@@ -22,8 +22,10 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     if (b1==0){lNombres[a1] = 4;}
     if (b2==0){lNombres[a2] = 4;}
     valScore = 0;
+    etatJeu = 0;
     chgtValeurs();
     chgtScore();
+    finJeu();
 }
 
 void listeValeurs::haut() {
@@ -32,6 +34,7 @@ void listeValeurs::haut() {
     fusion(0);
     gravite(0);
     if (l!=lNombres) {addtile();}
+    endGame();
     chgtValeurs();
     chgtScore();
 }
@@ -42,6 +45,7 @@ void listeValeurs::bas() {
     fusion(1);
     gravite(1);
     if (l!=lNombres) {addtile();}
+    endGame();
     chgtValeurs();
     chgtScore();
 }
@@ -52,6 +56,7 @@ void listeValeurs::droite() {
     fusion(2);
     gravite(2);
     if (l!=lNombres) {addtile();}
+    endGame();
     chgtValeurs();
     chgtScore();
 }
@@ -62,6 +67,7 @@ void listeValeurs::gauche() {
     fusion(3);
     gravite(3);
     if (l!=lNombres) {addtile();}
+    endGame();
     chgtValeurs();
     chgtScore();
 }
@@ -72,6 +78,10 @@ QList<int> listeValeurs::lireValeurs() {
 
 QString listeValeurs::lireScore() {
     return QString::number(valScore);
+}
+
+int listeValeurs::lireFin() {
+    return etatJeu;
 }
 
 
@@ -230,7 +240,6 @@ void listeValeurs::addtile() {
         if (lNombres[i]!=0) {c++;}
     }
     if (c == 16) {
-        //endgame();
         return;
     }
     while (lNombres[a]!=0) {a = rand()%16;}
@@ -251,8 +260,35 @@ void listeValeurs::restartGame() {
     if (b1==0){lNombres[a1] = 4;}
     if (b2==0){lNombres[a2] = 4;}
     valScore = 0;
+    etatJeu = 0;
     chgtValeurs();
     chgtScore();
+    finJeu();
+}
+
+void listeValeurs::endGame() {
+    int c = 0;
+    for (int i=0; i<16; i++){
+        if (lNombres[i]!=0) {c++;}
+    }
+    if (c == 16) {
+        for (int i=0; i<16; i++){
+            if (i>3){
+                if (lNombres[i]==lNombres[i-4]){return;} //en haut
+            }
+            if (i%4!=0){
+                if (lNombres[i]==lNombres[i-1]){return;} //a gauche
+            }
+            if (i%4!=3){
+                if (lNombres[i]==lNombres[i+1]){return;} //a droite
+            }
+            if (i<12){
+                if (lNombres[i]==lNombres[i+4]){return;} //en bas
+            }
+        }
+        etatJeu = 1;
+    }
+    finJeu();
 }
 
 
