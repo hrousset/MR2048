@@ -24,6 +24,7 @@ Window {
         border.width: 0
         anchors.horizontalCenter: parent.horizontalCenter
 
+
         Repeater {
             model: 16
             delegate: Tile {
@@ -46,18 +47,18 @@ Window {
                     focus: true
                     Keys.onPressed: {
                         switch (event.key) {
-                            case Qt.Key_Up:
-                                listeNombres.haut();
-                                break;
-                            case Qt.Key_Down:
-                                listeNombres.bas();
-                                break;
-                            case Qt.Key_Right:
-                                listeNombres.droite();
-                                break;
-                            case Qt.Key_Left:
-                                listeNombres.gauche();
-                                break;
+                        case Qt.Key_Up:
+                            listeNombres.haut();
+                            break;
+                        case Qt.Key_Down:
+                            listeNombres.bas();
+                            break;
+                        case Qt.Key_Right:
+                            listeNombres.droite();
+                            break;
+                        case Qt.Key_Left:
+                            listeNombres.gauche();
+                            break;
                         }
                     }
 
@@ -78,85 +79,85 @@ Window {
                         opacity: (valeur1[index]!=0)*1
                         focus: true
                         Keys.onPressed: {
-                          switch (event.key) {
+                            switch (event.key) {
                             case Qt.Key_Up:
-                              listeNombres.haut();
-                              break;
+                                listeNombres.haut();
+                                break;
                             case Qt.Key_Down:
-                              listeNombres.bas();
-                              break;
+                                listeNombres.bas();
+                                break;
                             case Qt.Key_Right:
                                 listeNombres.droite();
                                 break;
                             case Qt.Key_Left:
                                 listeNombres.gauche();
                                 break;
-                          }
+                            }
                         }
                     }
                 }
             }
         }
 
-    TextEdit {
-        id: titre
-        x: 0
-        y: -142
-        width: 80
-        height: 20
-        color: "#776e65"
-        text: qsTr("2048")
-        font.weight: Font.Black
-        font.bold: false
-        font.family: "Arial"
-        selectionColor: "#020080"
-        font.pixelSize: 48
-    }
-
-    Rectangle {
-        id: score
-        x: 315
-        y: -157
-        width: 100
-        height: 50
-        color: "#bbada0"
-        radius: 5
-        border.width: 0
-
-        Text {
-            id: titre_score
-            x: 43
-            width: 28
-            height: 18
-            color: "#e7e3d8"
-            text: qsTr("SCORE")
-            anchors.horizontalCenterOffset: 0
-            font.pixelSize: 14
+        TextEdit {
+            id: titre
+            x: 0
+            y: -142
+            width: 80
+            height: 20
+            color: "#776e65"
+            text: qsTr("2048")
+            font.weight: Font.Black
             font.bold: false
             font.family: "Arial"
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.weight: Font.Black
-            horizontalAlignment: Text.AlignHCenter
-            anchors.top: parent.top
-            anchors.topMargin: 3
+            selectionColor: "#020080"
+            font.pixelSize: 48
         }
 
-        Text {
-            id: text1
-            x: 39
-            y: 16
-            color: "#faf8ef"
-            text: listeNombres.scQML //qsTr("36")
-            anchors.horizontalCenterOffset: 0
-            font.weight: Font.ExtraBold
-            font.family: "Arial"
-            renderType: Text.NativeRendering
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 30
-        }
-    }
+        Rectangle {
+            id: score
+            x: 315
+            y: -157
+            width: 100
+            height: 50
+            color: "#bbada0"
+            radius: 5
+            border.width: 0
 
-    /*Rectangle {
+            Text {
+                id: titre_score
+                x: 43
+                width: 28
+                height: 18
+                color: "#e7e3d8"
+                text: qsTr("SCORE")
+                anchors.horizontalCenterOffset: 0
+                font.pixelSize: 14
+                font.bold: false
+                font.family: "Arial"
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.weight: Font.Black
+                horizontalAlignment: Text.AlignHCenter
+                anchors.top: parent.top
+                anchors.topMargin: 3
+            }
+
+            Text {
+                id: text1
+                x: 39
+                y: 16
+                color: "#faf8ef"
+                text: listeNombres.scQML
+                anchors.horizontalCenterOffset: 0
+                font.weight: Font.ExtraBold
+                font.family: "Arial"
+                renderType: Text.NativeRendering
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 30
+            }
+        }
+
+        /*Rectangle {
         id: best
         x: 191
         y: -157
@@ -184,70 +185,142 @@ Window {
         border.width: 0
     }*/
 
-    TextEdit {
-        id: consigne
-        x: 0
-        y: -59
-        width: 80
-        height: 20
-        text: qsTr("Assemble les cases pour arriver à 2048 !")
-        font.pixelSize: 15
-        color: "#776e65"
-    }
-
-    Rectangle {
-        id: reset
-        x: 292
-        y: -71
-        width: 123
-        height: 44
-        color: "#8f7a66"
-        radius: 7
-        border.width: 0
-
-
-        Text {
-            id: newgame
-            x: 50
-            y: 15
-            color: "#faf8ef"
-            text: qsTr("NEW GAME")
-            font.weight: Font.Black
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 16
+        TextEdit {
+            id: consigne
+            x: 0
+            y: -59
+            width: 80
+            height: 20
+            text: qsTr("Assemble les cases pour arriver à 2048 !")
+            font.pixelSize: 15
+            color: "#776e65"
         }
 
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            onClicked: {
-                listeNombres.restartGame()
+        Rectangle {
+            id: reset
+            x: 292
+            y: -71
+            width: 123
+            height: 44
+            color: "#8f7a66"
+            radius: 7
+            border.width: 0
+
+
+            Text {
+                id: newgame
+                x: 50
+                y: 15
+                color: "#faf8ef"
+                text: qsTr("NEW GAME")
+                font.weight: Font.Black
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 16
+            }
+
+            MouseArea {
+                id: mouseArea
+                anchors.fill: parent
+                onClicked: {listeNombres.restartGame()}
             }
         }
+
+        Image {
+            id: medaille
+            x: 0
+            y: 0
+            width: 267
+            height: 358
+            opacity: 0.8*listeNombres.medailleQML
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: "medaille.png"
+
+            TextEdit {
+                id: textmedaille
+                x: 94
+                y: 95
+                width: 180
+                height: 59
+                text: qsTr("BRAVO")
+                font.weight: Font.ExtraBold
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 50
+            }
+
+            MouseArea {
+                id: mouseArea1
+                anchors.fill: parent
+                onClicked: {listeNombres.supprmedaille()}
+            }
+
+            Text {
+                id: text2
+                x: 28
+                y: 398
+                color: "#707070"
+                text: qsTr("Cliquez sur la médalle pour continuer...")
+                font.pixelSize: 13
+            }
+        }
+
+        Rectangle {
+            id: fin
+            color: "#ebe4dd"
+            anchors.fill: parent
+            radius: 10
+            opacity: 0.6*listeNombres.finQML
+        }
+        Text {
+            id: textefin
+            x: 126
+            y: 163
+            width: 141
+            height: 49
+            color: "#776e65"
+            text: qsTr("PERDU")
+            opacity: listeNombres.finQML
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.weight: Font.Black
+            font.pixelSize: 40
+        }
+
     }
 
-    Rectangle {
-        id: fin
-        color: "#ebe4dd"
-        anchors.fill: parent
-        radius: 10
-        opacity: 0.6*listeNombres.finQML
-    }
-    Text {
-        id: textefin
-        x: 126
-        y: 163
-        width: 141
-        height: 49
-        color: "#776e65"
-        text: qsTr("PERDU")
-        opacity: listeNombres.finQML
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        font.weight: Font.Black
-        font.pixelSize: 40
-    }
+    StateGroup {
+        id: stateGroup
+        states: [
+            State {
+                name: "State1"
+
+                PropertyChanges {
+                    target: grand_rectangle.textefin
+                    opacity: 0
+                }
+            },
+            State {
+                name: "State2"
+
+                PropertyChanges {
+                    target: grand_rectangle.textefin
+                    opacity: 0.6
+                }
+            }
+        ]
+
+        transitions: [
+            Transition {
+                from: "State1";
+                to: "State2"
+                NumberAnimation {
+                    easing.type: Easing.Linear
+                    properties: "opacity"
+                    duration: 1000
+                }
+            }
+        ]
     }
 
 }

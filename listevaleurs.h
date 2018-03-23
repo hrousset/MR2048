@@ -18,11 +18,13 @@ public:
     Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs);
     Q_PROPERTY(QString scQML READ lireScore NOTIFY chgtScore);
     Q_PROPERTY(int finQML READ lireFin NOTIFY finJeu);
+    Q_PROPERTY(int medailleQML READ lireMedaille NOTIFY finMedaille);
 
 
     QList<int> lireValeurs();
     QString lireScore();
     int lireFin();
+    int lireMedaille();
 
     void gravite(int a);
     void fusion(int a);
@@ -40,19 +42,24 @@ public:
     void fusion_gauche(int a);
 
     void endGame();
+    void winGame();
 
 signals:
     void chgtValeurs();
     void chgtScore();
     void finJeu();
+    void finMedaille();
 
 public slots:
     void restartGame();
+    void supprmedaille();
 
 private:
     QList<int> lNombres;
     int valScore;
     int etatJeu;
+    int etatMedaille;
+    int agagne;
 
 };
 

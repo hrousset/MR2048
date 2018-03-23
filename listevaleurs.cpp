@@ -23,9 +23,12 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     if (b2==0){lNombres[a2] = 4;}
     valScore = 0;
     etatJeu = 0;
+    etatMedaille = 0;
+    agagne = 0;
     chgtValeurs();
     chgtScore();
     finJeu();
+    finMedaille();
 }
 
 void listeValeurs::haut() {
@@ -34,6 +37,7 @@ void listeValeurs::haut() {
     fusion(0);
     gravite(0);
     if (l!=lNombres) {addtile();}
+    if (agagne==0) {winGame();}
     endGame();
     chgtValeurs();
     chgtScore();
@@ -45,6 +49,7 @@ void listeValeurs::bas() {
     fusion(1);
     gravite(1);
     if (l!=lNombres) {addtile();}
+    if (agagne==0) {winGame();}
     endGame();
     chgtValeurs();
     chgtScore();
@@ -56,6 +61,7 @@ void listeValeurs::droite() {
     fusion(2);
     gravite(2);
     if (l!=lNombres) {addtile();}
+    if (agagne==0) {winGame();}
     endGame();
     chgtValeurs();
     chgtScore();
@@ -67,6 +73,7 @@ void listeValeurs::gauche() {
     fusion(3);
     gravite(3);
     if (l!=lNombres) {addtile();}
+    if (agagne==0) {winGame();}
     endGame();
     chgtValeurs();
     chgtScore();
@@ -84,6 +91,9 @@ int listeValeurs::lireFin() {
     return etatJeu;
 }
 
+int listeValeurs::lireMedaille() {
+    return etatMedaille;
+}
 
 int listeValeurs::coordonnees(int x, int y) {
     return y*4+x;
@@ -261,9 +271,12 @@ void listeValeurs::restartGame() {
     if (b2==0){lNombres[a2] = 4;}
     valScore = 0;
     etatJeu = 0;
+    etatMedaille = 0;
+    agagne = 0;
     chgtValeurs();
     chgtScore();
     finJeu();
+    finMedaille();
 }
 
 void listeValeurs::endGame() {
@@ -291,4 +304,17 @@ void listeValeurs::endGame() {
     finJeu();
 }
 
+void listeValeurs::supprmedaille() {
+    etatMedaille = 0;
+    finMedaille();
+}
 
+void listeValeurs::winGame() {
+    for (int i=0; i<16; i++) {
+        if (lNombres[i]==32) {
+            etatMedaille = 1;
+            finMedaille();
+            agagne = 1;
+        }
+    }
+}

@@ -34,3 +34,6 @@ HEADERS += \
     case.h \
     tableau.h \
     listevaleurs.h
+
+DISTFILES += \
+    medaille.png
