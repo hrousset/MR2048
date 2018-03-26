@@ -141,8 +141,8 @@ Window {
         }
     }
 
-    /*Rectangle {
-        id: best
+    Rectangle {
+        id: undo
         x: 191
         y: -157
         width: 100
@@ -150,13 +150,14 @@ Window {
         color: "#bbada0"
         radius: 5
 
+
         Text {
             id: titre_best
             x: 43
             width: 28
             height: 18
             color: "#e7e3d8"
-            text: qsTr("BEST")
+            text: qsTr("UNDO")
             font.pixelSize: 14
             font.bold: false
             font.family: "Arial"
@@ -166,8 +167,15 @@ Window {
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
         }
+
+        MouseArea {
+            id: mouseArea
+            width: 100
+            height: 50
+            onClicked : {reset.buttonUndo();}
+        }
         border.width: 0
-    }*/
+    }
 
     TextEdit {
         id: consigne

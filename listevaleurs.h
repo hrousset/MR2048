@@ -15,8 +15,8 @@ public:
     Q_INVOKABLE void gauche();
     Q_INVOKABLE void droite();
 
-    Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs);
-    Q_PROPERTY(int scQML READ lireScore NOTIFY chgtScore);
+    Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs)
+    Q_PROPERTY(int scQML READ lireScore NOTIFY chgtScore)
 
 
     QList<int> lireValeurs();
@@ -36,17 +36,21 @@ public:
     void fusion_bas(int a);
     void fusion_droite(int a);
     void fusion_gauche(int a);
+    void ajout_tab();
+
 
 signals:
     void chgtValeurs();
     void chgtScore();
 
 public slots:
-
+    void undo();
 private:
     QList<int> lNombres;
     int valScore;
-
+    QList<int> **tableau_point;
+    int compteur;
+    bool depasse_compteur;
 };
 
 #endif // LISTEVALEURS_H

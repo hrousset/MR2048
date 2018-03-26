@@ -10,6 +10,8 @@ using namespace std;
 
 listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
 {
+    tableau_point = new QList<int>*[500];
+    compteur = 0;
     srand((int)time(0));
     int a1 = rand()%16;  //initialisation des deux cases du debut
     int a2 = rand()%16;
@@ -24,6 +26,8 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     valScore = 0;
     chgtValeurs();
     chgtScore();
+    ajout_tab();
+    depasse_compteur=false;
 }
 
 void listeValeurs::haut() {
@@ -44,6 +48,7 @@ void listeValeurs::bas() {
     if (l!=lNombres) {addtile();}
     chgtValeurs();
     chgtScore();
+    ajout_tab();
 }
 
 void listeValeurs::droite() {
@@ -54,6 +59,7 @@ void listeValeurs::droite() {
     if (l!=lNombres) {addtile();}
     chgtValeurs();
     chgtScore();
+    ajout_tab();
 }
 
 void listeValeurs::gauche() {
@@ -64,12 +70,15 @@ void listeValeurs::gauche() {
     if (l!=lNombres) {addtile();}
     chgtValeurs();
     chgtScore();
+    ajout_tab();
 }
 
 QList<int> listeValeurs::lireValeurs() {
     return lNombres;
 }
-
+int listeValeurs::lireScore() {
+    return valScore;
+}
 
 int listeValeurs::coordonnees(int x, int y) {
     return y*4+x;
@@ -234,5 +243,26 @@ void listeValeurs::addtile() {
     if (b==0) {lNombres[a]=4;}
 }
 
+void listeValeurs::ajout_tab()
+{
+    if (compteur<500)
+    {
+        tableau_point[compteur]=&lNombres;
+        compteur += 1;
+    }
+    else
+    {
+        depasse_compteur = true;
+        compteur = 0;
+        tableau_point[compteur]=&lNombres; //on remet le compteur à 0, et on a en mémoire "seulement" les 500 coups précédents
+    }
+}
 
-
+void listeValeurs::undo()
+{
+    if (compteur>0)
+    {
+        lNombres = *(tableau_point[compteur-1]);
+        delete *(tableau_point[compteur]);
+    }
+}
