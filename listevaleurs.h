@@ -53,6 +53,7 @@ signals:
 public slots:
     void restartGame();
     void supprmedaille();
+    void undo();
 
 private:
     QList<int> lNombres;

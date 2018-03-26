@@ -157,33 +157,38 @@ Window {
             }
         }
 
-        /*Rectangle {
-        id: best
-        x: 191
-        y: -157
-        width: 100
-        height: 50
-        color: "#bbada0"
-        radius: 5
+        Rectangle {
+            id: best
+            x: 191
+            y: -157
+            width: 100
+            height: 50
+            color: "#bbada0"
+            radius: 5
 
-        Text {
-            id: titre_best
-            x: 43
-            width: 28
-            height: 18
-            color: "#e7e3d8"
-            text: qsTr("BEST")
-            font.pixelSize: 14
-            font.bold: false
-            font.family: "Arial"
-            anchors.top: parent.top
-            anchors.topMargin: 7
-            font.weight: Font.Black
-            anchors.horizontalCenter: parent.horizontalCenter
-            horizontalAlignment: Text.AlignHCenter
+            Text {
+                id: titre_best
+                x: 43
+                width: 72
+                height: 24
+                color: "#faf8ef"
+                text: qsTr("UNDO")
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 22
+                font.bold: false
+                font.family: "Arial"
+                font.weight: Font.Black
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            MouseArea {
+                id: mouseArea2
+                anchors.fill: parent
+                onClicked: {listeNombres.undo()}
+            }
+            border.width: 0
         }
-        border.width: 0
-    }*/
 
         TextEdit {
             id: consigne
@@ -286,6 +291,7 @@ Window {
             font.weight: Font.Black
             font.pixelSize: 40
         }
+
 
     }
 
