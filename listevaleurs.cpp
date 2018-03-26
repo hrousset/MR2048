@@ -10,7 +10,19 @@ using namespace std;
 
 listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
 {
-    tableau_point = new QList<int>*[500];
+
+    for (int i=0;i<500;i++)
+    {
+        cout <<0;
+        for (int j=0;j<16;j++)
+        {
+            cout<<1;
+            QList<int> tab({0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0});
+            tableau_point.append(tab);
+        }
+
+    }
+
     compteur = 0;
     srand((int)time(0));
     int a1 = rand()%16;  //initialisation des deux cases du debut
@@ -40,6 +52,7 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     finMedaille();
 }
 
+
 void listeValeurs::haut() {
     QList<int> l = lNombres;
     gravite(0);
@@ -50,6 +63,8 @@ void listeValeurs::haut() {
     endGame();  //verification que le jeu n'est pas perdu
     chgtValeurs();
     chgtScore();
+    ajout_tab();
+
 }
 
 void listeValeurs::bas() {
@@ -66,6 +81,7 @@ void listeValeurs::bas() {
 }
 
 void listeValeurs::droite() {
+
     QList<int> l = lNombres;
     gravite(2);
     fusion(2);
@@ -76,9 +92,11 @@ void listeValeurs::droite() {
     chgtValeurs();
     chgtScore();
     ajout_tab();
+
 }
 
 void listeValeurs::gauche() {
+
     QList<int> l = lNombres;
     gravite(3);
     fusion(3);
@@ -271,11 +289,14 @@ void listeValeurs::addtile() {
     if (b==0) {lNombres[a]=4;}
 }
 
+/*
 void listeValeurs::ajout_tab()
 {
+    //lNombres2=lNombres;
+
     if (compteur<500)
     {
-        tableau_point[compteur]=&lNombres;
+        modif_tableau(*(tableau_point[compteur]));
         compteur += 1;
     }
     else
@@ -283,17 +304,95 @@ void listeValeurs::ajout_tab()
         depasse_compteur = true;
         compteur = 0;
         tableau_point[compteur]=&lNombres; //on remet le compteur à 0, et on a en mémoire "seulement" les 500 coups précédents
+        compteur+=1;
+    }
+}
+
+void listeValeurs::modif_lN(QList<int> tab)
+{
+    for (int i=0;i<16;i++)
+    {
+        lNombres[i]= tab[i];
+    }
+    chgtValeurs();
+
+}
+
+void listeValeurs::modif_tableau(QList<int> tab)
+{
+    for (int i=0;i<16;i++)
+    {
+        tab[i] = lNombres[i];
     }
 }
 
 void listeValeurs::undo()
 {
+    //lNombres = lNombres2;
+    //chgtValeurs();
+
     if (compteur>0)
     {
-        lNombres = *(tableau_point[compteur-1]);
-        delete *(tableau_point[compteur]);
+        modif_lN(*(tableau_point[compteur-1]));
+        //lNombres = *(tableau_point[compteur-1]);
+        compteur -=1;
+        //delete &(tableau_point[compteur]);
+        chgtValeurs();
     }
 }
+
+
+
+  Version 2 QList de QList*/
+void listeValeurs::ajout_tab()
+{
+    if (compteur<500)
+    {
+        modif_tableau();
+        compteur += 1;
+    }
+    else
+    {
+        depasse_compteur = true;
+        compteur = 0;
+        modif_tableau(); //on remet le compteur à 0, et on a en mémoire "seulement" les 500 coups précédents
+        compteur+=1;
+    }
+}
+
+void listeValeurs::modif_lN()
+{
+    for (int i=0;i<16;i++)
+    {
+        lNombres[i]= tableau_point[compteur][i];
+    }
+    chgtValeurs();
+
+}
+
+void listeValeurs::modif_tableau()
+{
+    for (int i=0;i<16;i++)
+    {
+        tableau_point[compteur][i] = lNombres[i];
+    }
+}
+
+void listeValeurs::undo()
+{
+    //lNombres = lNombres2;
+    //chgtValeurs();
+    if (compteur>0)
+    {
+        compteur -=1;
+        modif_lN();
+        //lNombres = *(tableau_point[compteur-1]);
+
+        //delete &(tableau_point[compteur]);
+        chgtValeurs();
+    }
+}
+
 
 void listeValeurs::restartGame() {
     srand((int)time(0));

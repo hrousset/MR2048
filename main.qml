@@ -125,7 +125,7 @@ Window {
 
 
         Text {
-            id: titre_best
+            id: titre_undo
             x: 43
             width: 28
             height: 18
@@ -142,10 +142,10 @@ Window {
         }
 
         MouseArea {
-            id: mouseArea
+            id: mouseArea2
             width: 100
             height: 50
-            onClicked : {reset.buttonUndo();}
+            onClicked : {listeNombres.undo();}
         }
         border.width: 0
     }
@@ -205,7 +205,7 @@ Window {
         }
 //>>>>>>> 11080c69b86b3043be17083ce53c681655f5d07d
 
-        Rectangle {
+        /*Rectangle {
             id: best
             x: 191
             y: -157
@@ -247,7 +247,7 @@ Window {
             text: qsTr("Assemble les cases pour arriver à 2048 !")
             font.pixelSize: 15
             color: "#776e65"
-        }
+        }*/
 
         Rectangle {
             id: reset

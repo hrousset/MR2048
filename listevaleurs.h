@@ -17,7 +17,6 @@ public:
 
 
     Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs)
-    Q_PROPERTY(int scQML READ lireScore NOTIFY chgtScore)
 
     Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs);
     Q_PROPERTY(QString scQML READ lireScore NOTIFY chgtScore);
@@ -47,6 +46,9 @@ public:
     void fusion_gauche(int a);
     void ajout_tab();
 
+    void modif_lN();
+    void modif_tableau();
+
 
     void endGame();
     void winGame();
@@ -64,8 +66,9 @@ public slots:
 
 private:
     QList<int> lNombres;
+    QList<int> lNombres2;
     int valScore;
-    QList<int> **tableau_point;
+    QList<QList<int>> tableau_point;
     int compteur;
     bool depasse_compteur;
     int etatJeu;
