@@ -17,19 +17,18 @@ public:
 
 
     Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs)
-    Q_PROPERTY(int scQML READ lireScore NOTIFY chgtScore)
-
     Q_PROPERTY(QList<int> jeuQML READ lireValeurs NOTIFY chgtValeurs);
     Q_PROPERTY(QString scQML READ lireScore NOTIFY chgtScore);
     Q_PROPERTY(int finQML READ lireFin NOTIFY finJeu);
     Q_PROPERTY(int medailleQML READ lireMedaille NOTIFY finMedaille);
-
+    Q_PROPERTY(int visuQML READ lireVisu  NOTIFY chgtVisu)
 
 
     QList<int> lireValeurs();
     QString lireScore();
     int lireFin();
     int lireMedaille();
+    int lireVisu();
 
     void gravite(int a);
     void fusion(int a);
@@ -56,11 +55,14 @@ signals:
     void chgtScore();
     void finJeu();
     void finMedaille();
+    void chgtVisu();
 
 public slots:
     void restartGame();
     void supprmedaille();
     void undo();
+    void visuclair();
+    void visufonce();
 
 private:
     QList<int> lNombres;
@@ -71,12 +73,9 @@ private:
     int etatJeu;
     int etatMedaille;
     int agagne;
+    int visu;
 
 
-
-
-
-//>>>>>>> 11080c69b86b3043be17083ce53c681655f5d07d
 };
 
 #endif // LISTEVALEURS_H

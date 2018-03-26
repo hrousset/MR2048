@@ -38,6 +38,9 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
 
     etatMedaille = 0;   //le jeu n'est pas gagné
     finMedaille();
+
+    visu = 0;
+    chgtVisu();
 }
 
 void listeValeurs::haut() {
@@ -106,7 +109,10 @@ int listeValeurs::lireFin() {
 
 int listeValeurs::lireMedaille() {
     return etatMedaille;
+}
 
+int listeValeurs::lireVisu() {
+    return visu;
 }
 
 int listeValeurs::coordonnees(int x, int y) {
@@ -291,7 +297,7 @@ void listeValeurs::undo()
     if (compteur>0)
     {
         lNombres = *(tableau_point[compteur-1]);
-        delete *(tableau_point[compteur]);
+        delete &(tableau_point[compteur]);
     }
 }
 
@@ -355,4 +361,14 @@ void listeValeurs::winGame() {
             agagne = 1;
         }
     }
+}
+
+void listeValeurs::visuclair() {
+    visu = 0;
+    chgtVisu();
+}
+
+void listeValeurs::visufonce() {
+    visu = 1;
+    chgtVisu();
 }
