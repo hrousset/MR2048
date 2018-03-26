@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("listeNombres", &uneValeur);
-    engine.rootContext()->setContextProperty("score", &uneValeur);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     //if (engine.rootObjects().isEmpty())

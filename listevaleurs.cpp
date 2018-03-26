@@ -15,19 +15,29 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     srand((int)time(0));
     int a1 = rand()%16;  //initialisation des deux cases du debut
     int a2 = rand()%16;
+
     while(a1==a2){a2 = rand()%16;}   //Pour pas que les deux tuiles du depart soient superposees
     int b1 = rand()%10;
     int b2 = rand()%10;
-    for (int i=0; i<16; i++) {lNombres.append(0);}
+
+    for (int i=0; i<16; i++) {lNombres.append(0);} //creation de la liste
     lNombres[a1] = 2;
     lNombres[a2] = 2;
-    if (b1==0){lNombres[a1] = 4;}
+    if (b1==0){lNombres[a1] = 4;} //1 chance sur 10 que la case initiale soit un 4
     if (b2==0){lNombres[a2] = 4;}
-    valScore = 0;
+    agagne = 0;     //le jeu n'a pas encore été gagné
     chgtValeurs();
+
+    valScore = 0;   //initialisation à  du score
     chgtScore();
     ajout_tab();
     depasse_compteur=false;
+
+    etatJeu = 0;    //le jeu n'est pas perdu
+    finJeu();
+
+    etatMedaille = 0;   //le jeu n'est pas gagné
+    finMedaille();
 }
 
 void listeValeurs::haut() {
@@ -35,7 +45,9 @@ void listeValeurs::haut() {
     gravite(0);
     fusion(0);
     gravite(0);
-    if (l!=lNombres) {addtile();}
+    if (l!=lNombres) {addtile();}   //on ne rajoute une tuile que si le jeu a changé a ce mouvement
+    if (agagne==0) {winGame();}   //verification que le jeu n'est pas gagné
+    endGame();  //verification que le jeu n'est pas perdu
     chgtValeurs();
     chgtScore();
 }
@@ -46,6 +58,8 @@ void listeValeurs::bas() {
     fusion(1);
     gravite(1);
     if (l!=lNombres) {addtile();}
+    if (agagne==0) {winGame();}
+    endGame();
     chgtValeurs();
     chgtScore();
     ajout_tab();
@@ -57,6 +71,8 @@ void listeValeurs::droite() {
     fusion(2);
     gravite(2);
     if (l!=lNombres) {addtile();}
+    if (agagne==0) {winGame();}
+    endGame();
     chgtValeurs();
     chgtScore();
     ajout_tab();
@@ -68,6 +84,8 @@ void listeValeurs::gauche() {
     fusion(3);
     gravite(3);
     if (l!=lNombres) {addtile();}
+    if (agagne==0) {winGame();}
+    endGame();
     chgtValeurs();
     chgtScore();
     ajout_tab();
@@ -76,8 +94,19 @@ void listeValeurs::gauche() {
 QList<int> listeValeurs::lireValeurs() {
     return lNombres;
 }
-int listeValeurs::lireScore() {
-    return valScore;
+
+
+QString listeValeurs::lireScore() {
+    return QString::number(valScore);
+}
+
+int listeValeurs::lireFin() {
+    return etatJeu;
+}
+
+int listeValeurs::lireMedaille() {
+    return etatMedaille;
+
 }
 
 int listeValeurs::coordonnees(int x, int y) {
@@ -235,7 +264,6 @@ void listeValeurs::addtile() {
         if (lNombres[i]!=0) {c++;}
     }
     if (c == 16) {
-        //endgame();
         return;
     }
     while (lNombres[a]!=0) {a = rand()%16;}
@@ -264,5 +292,67 @@ void listeValeurs::undo()
     {
         lNombres = *(tableau_point[compteur-1]);
         delete *(tableau_point[compteur]);
+    }
+}
+
+void listeValeurs::restartGame() {
+    srand((int)time(0));
+    int a1 = rand()%16;  //initialisation des deux cases du debut
+    int a2 = rand()%16;
+    while(a1==a2){a2 = rand()%16;}   //Pour pas que les deux tuiles du depart soient superposees
+    int b1 = rand()%10;
+    int b2 = rand()%10;
+    for (int i=0; i<16; i++) {lNombres[i]=0;}
+    lNombres[a1] = 2;
+    lNombres[a2] = 2;
+    if (b1==0){lNombres[a1] = 4;}
+    if (b2==0){lNombres[a2] = 4;}
+    valScore = 0;
+    etatJeu = 0;
+    etatMedaille = 0;
+    agagne = 0;
+    chgtValeurs();
+    chgtScore();
+    finJeu();
+    finMedaille();
+}
+
+void listeValeurs::endGame() {
+    int c = 0;
+    for (int i=0; i<16; i++){
+        if (lNombres[i]!=0) {c++;}
+    }
+    if (c == 16) {
+        for (int i=0; i<16; i++){
+            if (i>3){
+                if (lNombres[i]==lNombres[i-4]){return;} //en haut
+            }
+            if (i%4!=0){
+                if (lNombres[i]==lNombres[i-1]){return;} //a gauche
+            }
+            if (i%4!=3){
+                if (lNombres[i]==lNombres[i+1]){return;} //a droite
+            }
+            if (i<12){
+                if (lNombres[i]==lNombres[i+4]){return;} //en bas
+            }
+        }
+        etatJeu = 1;
+    }
+    finJeu();
+}
+
+void listeValeurs::supprmedaille() {
+    etatMedaille = 0;
+    finMedaille();
+}
+
+void listeValeurs::winGame() {
+    for (int i=0; i<16; i++) {
+        if (lNombres[i]==32) {
+            etatMedaille = 1;
+            finMedaille();
+            agagne = 1;
+        }
     }
 }
