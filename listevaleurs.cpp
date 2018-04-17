@@ -4,13 +4,21 @@
 #include <cstdlib>  //on inclut la fonction rand
 #include <ctime>  //avoir le temps pour des nombres aleatoires
 
-#include "listevaleurs.h"
-
 using namespace std;
 
 listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
 {
-    tableau_point = new QList<int>*[500];
+
+    for (int i=0;i<500;i++)
+    {
+        for (int j=0;j<16;j++)
+        {
+            QList<int> tab({0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0});
+            tableau_point.append(tab);
+        }
+
+    }
+
     compteur = 0;
     srand((int)time(0));
     int a1 = rand()%16;  //initialisation des deux cases du debut
@@ -43,12 +51,16 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     chgtVisu();
 }
 
+
 void listeValeurs::haut() {
     QList<int> l = lNombres;
     gravite(0);
     fusion(0);
     gravite(0);
-    if (l!=lNombres) {addtile();}   //on ne rajoute une tuile que si le jeu a changé a ce mouvement
+    if (l!=lNombres) {  //on ne rajoute une tuile que si le jeu a changé a ce mouvement
+        addtile();
+        ajout_tab();
+    }
     if (agagne==0) {winGame();}   //verification que le jeu n'est pas gagné
     endGame();  //verification que le jeu n'est pas perdu
     chgtValeurs();
@@ -60,38 +72,46 @@ void listeValeurs::bas() {
     gravite(1);
     fusion(1);
     gravite(1);
-    if (l!=lNombres) {addtile();}
+    if (l!=lNombres) {
+        addtile();
+        ajout_tab();
+    }
     if (agagne==0) {winGame();}
     endGame();
     chgtValeurs();
     chgtScore();
-    ajout_tab();
 }
 
 void listeValeurs::droite() {
+
     QList<int> l = lNombres;
     gravite(2);
     fusion(2);
     gravite(2);
-    if (l!=lNombres) {addtile();}
+    if (l!=lNombres) {
+        addtile();
+        ajout_tab();
+    }
     if (agagne==0) {winGame();}
     endGame();
     chgtValeurs();
     chgtScore();
-    ajout_tab();
 }
 
 void listeValeurs::gauche() {
+
     QList<int> l = lNombres;
     gravite(3);
     fusion(3);
     gravite(3);
-    if (l!=lNombres) {addtile();}
+    if (l!=lNombres) {
+        addtile();
+        ajout_tab();
+    }
     if (agagne==0) {winGame();}
     endGame();
     chgtValeurs();
     chgtScore();
-    ajout_tab();
 }
 
 QList<int> listeValeurs::lireValeurs() {
@@ -277,29 +297,55 @@ void listeValeurs::addtile() {
     if (b==0) {lNombres[a]=4;}
 }
 
+
 void listeValeurs::ajout_tab()
 {
     if (compteur<500)
     {
-        tableau_point[compteur]=&lNombres;
+        modif_tableau();
         compteur += 1;
     }
     else
     {
         depasse_compteur = true;
         compteur = 0;
-        tableau_point[compteur]=&lNombres; //on remet le compteur à 0, et on a en mémoire "seulement" les 500 coups précédents
+        modif_tableau(); //on remet le compteur à 0, et on a en mémoire "seulement" les 500 coups précédents
+        compteur+=1;
     }
+}
+
+void listeValeurs::modif_lN()
+{
+    for (int i=0;i<16;i++)
+    {
+        lNombres[i]= tableau_point[compteur-1][i];
+    }
+    valScore = tableau_point[compteur-1][16];
+    chgtValeurs();
+    chgtScore();
+
+}
+
+void listeValeurs::modif_tableau()
+{
+    for (int i=0;i<16;i++)
+    {
+        tableau_point[compteur][i] = lNombres[i];
+    }
+    tableau_point[compteur][16] = valScore;
 }
 
 void listeValeurs::undo()
 {
-    if (compteur>0)
+    if (compteur>1)
     {
-        lNombres = *(tableau_point[compteur-1]);
-        delete &(tableau_point[compteur]);
+        compteur -=1;
+        modif_lN();
+        chgtValeurs();
+        chgtScore();
     }
 }
+
 
 void listeValeurs::restartGame() {
     srand((int)time(0));

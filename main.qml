@@ -10,7 +10,7 @@ Window {
     width: 500
     height: 700
     color: couleur[visuel]
-    title: qsTr("2048")
+    title: qsTr("2048 by Helene & Bruno")
 
 
     Rectangle {
