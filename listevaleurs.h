@@ -67,7 +67,7 @@ signals:
     void chgtVisu();
 
 public slots:
-    //ces methodes sont appellees lorsque l'on clique sur uen mouseArea
+    //ces methodes sont appellees lorsque l'on clique sur une mouseArea
 
     //reinitialise lNombres et donc le jeu
     void restartGame();

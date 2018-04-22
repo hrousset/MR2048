@@ -9,7 +9,7 @@ using namespace std;
 listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
 //initialisation du jeu
 {
-    //on cree la liste de Qlist qui contiendra tou9tes les etapes du jeu
+    //on cree la liste de Qlist qui contiendra toutes les etapes du jeu
     for (int i=0;i<500;i++)
     {
             QList<int> tab({0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0});
