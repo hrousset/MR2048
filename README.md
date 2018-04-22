@@ -22,10 +22,9 @@ La classe ListeValeurs regroupe toutes ces fonctions qui modifient la QList lors
 
 Lors de l'initialisation, *LNombres* contient ques des zéros sauf deux entiers qui valent 2 ou 4 avec une chance sur 10 d'être un 4. Le entiers *valScore*, *agagne*, *etatMedaille*, *etatJeu*, *compteur* et *visu* sont tous mis à 0. La matrice *tableau_point* est remplie de 0 et *depasse_compteur* est faux.
 
-## Méthodes de la classe
+## Méthodes principales de la classe
 
-Pour modifier la fenêtre de jeu, l'utilisateur peut appuyer sur les 4 flêches du clavier ou cliquer avec sa souris sur 4 boutons.
-Les méthodes *remonter_...* et *fusion_...* sont responsable du glissement et de la fusion des cases.
+Pour modifier la fenêtre de jeu, l'utilisateur peut appuyer sur les 4 flêches du clavier ou cliquer avec sa souris sur 4 boutons ce qui fera tourner les 4 méthodes *haut()*, *bas()*, *droite()* et *gauche()*. Les méthodes *gravite* et *fusion* y sont appellees et sont responsable du glissement et de la fusion des cases.
 
-La méthode *ajout_tab* permet d'ajouter l'état actuel du tableau à une liste de tableaux (en faisant appel à la méthode *ajout_tab*)qui va contenir au maximum les 500 derniers coups.
+La méthode *ajout_tab* permet d'ajouter l'état actuel du tableau à une liste de tableaux (en faisant appel à la méthode *ajout_tab*) qui va contenir au maximum les 500 derniers coups.
 La méthode *modif_lN* va permettre de modifier notre tableau en appelant la méthode *undo* et donc de revenir à l'état précédent.
