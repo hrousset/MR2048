@@ -5,8 +5,6 @@
 
 
 #include "listevaleurs.h"
-//#include "case.h"
-//#include "tableau.h"
 
 int main(int argc, char *argv[])
 {

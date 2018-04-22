@@ -4,12 +4,12 @@ import QtQuick.Window 2.2
 
 Window {
     property var visuel: listeNombres.visuQML
-    property var couleur: ["#faf8ef","#404244"]
+    property var couleur: ["#faf8ef","#404244"]  //les couleurs claires et sombres
     id: window
     visible: true
     width: 500
     height: 700
-    color: couleur[visuel]
+    color: couleur[visuel]  //on appelle l'une ou l'autre selon la valuer de visu
     title: qsTr("2048 by Helene & Bruno")
 
 
@@ -34,6 +34,7 @@ Window {
                 objectName: "case" + index
                 x: index%4*100+15
                 y: (index-index%4)/4*100+15
+                //on cree 16 cases pour former un grand carre
                 Rectangle {
                     function log2(x) {
                         return Math.max(Math.log(x)/Math.log(2),0)
@@ -46,10 +47,12 @@ Window {
                     radius: 5
                     objectName: "tile" + index
                     color: couleur[visuel][log2(valeur[index])]
+                    //la couleur de la case depend de sa valeur
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     focus: true
                     Keys.onPressed: {
+                    //appelle les methodes haut(), bas(), droite() et gauche() selon la fleche du clavier appuyee
                         switch (event.key) {
                         case Qt.Key_Up:
                             listeNombres.haut();
@@ -83,8 +86,10 @@ Window {
                         anchors.verticalCenter: parent.verticalCenter
                         font.pixelSize: (1000<valeur1[index])*30+(valeur1[index]<100)*40+(100<valeur1[index]&&valeur1[index]<1000)*35
                         opacity: (valeur1[index]!=0)*1
+                        //l'opacite de la case est nulle si sa valeur est nulle
                         focus: true
                         Keys.onPressed: {
+                        //appelle les methodes haut(), bas(), droite() et gauche() selon la fleche du clavier appuyee
                             switch (event.key) {
                             case Qt.Key_Up:
                                 listeNombres.haut();
@@ -158,6 +163,7 @@ Window {
                 width: 100
                 height: 50
                 onClicked : {listeNombres.undo();}
+                //on appelle undo() lorsque l'on clique sur le bouton UNDO
             }
             border.width: 0
         }
@@ -214,7 +220,7 @@ Window {
                 x: 39
                 y: 16
                 color: couleur[visuel]
-                text: listeNombres.scQML
+                text: listeNombres.scQML  //on affiche le score
                 anchors.horizontalCenterOffset: 0
                 font.weight: Font.ExtraBold
                 font.family: "Arial"
@@ -255,6 +261,7 @@ Window {
                 id: mouseArea
                 anchors.fill: parent
                 onClicked: {listeNombres.restartGame()}
+                //on appelle retartGame() lorsque l'on appuie sur le bouton NEW GAME
             }
         }
 
@@ -265,6 +272,7 @@ Window {
             width: 267
             height: 358
             opacity: 0.9*listeNombres.medailleQML
+            //l'opacite de la medaille depend de la valeur de etatMedaille
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             source: "medaille.png"
@@ -285,6 +293,7 @@ Window {
                 id: mouseArea1
                 anchors.fill: parent
                 onClicked: {listeNombres.supprmedaille()}
+                //appelle supprmedaille lorsque l'on clique sur la medaille
             }
 
             Text {
@@ -303,6 +312,7 @@ Window {
             anchors.fill: parent
             radius: 10
             opacity: 0.6*listeNombres.finQML
+            //l'opacity du message de fin depend de la valeur de etatJeu
         }
         Text {
             id: textefin
@@ -340,6 +350,7 @@ Window {
             id: mouseArea3
             anchors.fill: parent
             onClicked: {listeNombres.visuclair();}
+            //appelle la methode visuclair() lorsque l'on clique sur le rectange de couleur claire
         }
     }
 
@@ -361,42 +372,8 @@ Window {
             id: mouseArea4
             anchors.fill: parent
             onClicked: {listeNombres.visufonce();}
+            //appelle la methode visufonce() lorsque l'on clique sur le regtange de couleur foncee
         }
     }
-
-    /*StateGroup {
-        id: stateGroup
-        states: [
-            State {
-                name: "State1"
-
-                PropertyChanges {
-                    target: grand_rectangle.textefin
-                    opacity: 0
-                }
-            },
-            State {
-                name: "State2"
-
-                PropertyChanges {
-                    target: grand_rectangle.textefin
-                    opacity: 0.6
-                }
-            }
-        ]
-
-        transitions: [
-            Transition {
-                from: "State1";
-                to: "State2"
-                NumberAnimation {
-                    easing.type: Easing.Linear
-                    properties: "opacity"
-                    duration: 1000
-                }
-            }
-        ]
-    }*/
-
 }
 
