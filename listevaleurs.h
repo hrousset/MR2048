@@ -51,7 +51,9 @@ public:
 
 
     void ajout_tab();
+    //modifie la liste actuelle
     void modif_lN();
+    //ajoute le tableau (l'état du 2048) à une liste de tableaux
     void modif_tableau();
 
     //si le jeu est perdu, il met finJeu à 1
@@ -73,6 +75,7 @@ public slots:
     void restartGame();
     //met la variable etatMedaille à 0 (ce qui supprime la medaille)
     void supprmedaille();
+    //fait revenir le jeu d'un coup en arrière
     void undo();
     //met visu à 0 (ce qui enclenche les couleurs claires)
     void visuclair();
@@ -84,9 +87,12 @@ private:
     QList<int> lNombres;
     //entier qui donne le score
     int valScore;
-    QList<QList<int>> tableau_point;
-    int compteur;
+    //va nous permettre de savoir si on a dépassé les 500 coups
     bool depasse_compteur;
+    //tableau de tableaux qui stockent tous les états précédents du 2048 pour pouvoir y remonter
+    QList<QList<int>> tableau_point;
+    //l'entier nous permettra de savoir où nous en sommes lorsque nous stockerons les tableaux précédents
+    int compteur;
     //1 si le jeu est perdu, 0 sinon
     int etatJeu;
     //1 si la medaille est visible, 0 sinon

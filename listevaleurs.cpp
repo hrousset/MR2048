@@ -37,7 +37,7 @@ listeValeurs::listeValeurs(QObject *parent) : QObject(parent)
     valScore = 0;   //initialisation à 0 du score
     chgtScore();
     ajout_tab();
-    depasse_compteur=false;
+    depasse_compteur = false;
 
     etatJeu = 0;    //le jeu n'est pas perdu
     finJeu();
@@ -325,6 +325,7 @@ void listeValeurs::addtile() {
 
 void listeValeurs::ajout_tab()
 {
+    //on stocke seulement les 500 premiers tableaux : on ne pourra remonter qu'au 500e dernier coup
     if (compteur<500)
     {
         modif_tableau();
@@ -341,6 +342,7 @@ void listeValeurs::ajout_tab()
 
 void listeValeurs::modif_lN()
 {
+    // modif_lN va modifier les valeurs de la liste en fonction de la valeur du compteur
     for (int i=0;i<16;i++)
     {
         lNombres[i]= tableau_point[compteur-1][i];
@@ -353,9 +355,10 @@ void listeValeurs::modif_lN()
 
 void listeValeurs::modif_tableau()
 {
+    // modif_tableau va ajouter le tableau actuel à notre liste de tableaux
     for (int i=0;i<16;i++)
     {
-        tableau_point[compteur][i] = lNombres[i];
+        tableau_point[compteur][i] = lNombres[i];//copie des valeurs de lNombres dans tableau_point[compteur]
     }
     tableau_point[compteur][16] = valScore;
 }
@@ -364,7 +367,14 @@ void listeValeurs::undo()
 {
     if (compteur>1)
     {
-        compteur -=1;
+        compteur -=1;//ce décrément permet de revenir à son état précédent grâce à la fonction modif_lN()
+        modif_lN();
+        chgtValeurs();
+        chgtScore();
+    }
+    else if (depasse_compteur)
+    {
+        compteur=499; //si le compteur est nul mais que l'on a dépassé les 500 coups, on doit pouvoir revenir aux coups précédents quand même
         modif_lN();
         chgtValeurs();
         chgtScore();
